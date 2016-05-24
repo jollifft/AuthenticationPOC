@@ -27,7 +27,9 @@ namespace MaterialTest
 			AppService.Messaging.SubscribeMessage<BearsMessage>(this, results =>
 			{
 				BearsList = new ObservableCollection<Bears>(results.bears);
-				IsBusy = false;
+				if(BearsList.Count > 0){
+					IsBusy = false;
+				}
 			});
 
 //			MessagingCenter.Subscribe<AppService, IEnumerable<Bears>> (this, "BearMessage", (sender, args) => {
@@ -40,8 +42,6 @@ namespace MaterialTest
 
 			IsBusy = true;
 			Task.Run(async () => await App.AppService.GetBears());
-
-			//App.AppService.GetBears ();
 
 		}
 	}

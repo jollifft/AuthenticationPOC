@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MAD.Plugin.BaaS.Core;
 using Xamarin.Forms;
+using MAD.Plugin.MessagingService.Core;
 
 namespace MaterialTest
 {

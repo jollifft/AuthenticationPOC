@@ -5,6 +5,8 @@ using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using MAD.Plugin.MessagingService.PubSubPCL;
+using MAD.Plugin.MessagingService.Core;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MaterialTest
@@ -30,7 +32,7 @@ namespace MaterialTest
 			//	}
 			//};
 			var azure = new AzureService(new MobileServiceClient("http://azureauthbackend.azurewebsites.net"), new MobileServiceSQLiteStore("MaterialDesign.db3"), 14000);
-			AppService = new AppService(azure, new PubSubPCLMessaging(new SubscriptionManager()));
+			AppService = new AppService(azure, new PubSubPCLMessaging());
 			MainPage = new RootPage();
 		}
 

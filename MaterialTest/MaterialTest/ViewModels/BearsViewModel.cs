@@ -22,6 +22,15 @@ namespace MaterialTest
 			}
 		}
 
+		private Command increase;
+		public Command IncreaseCommand
+		{
+			get 
+			{ 
+				return increase ?? (increase = new Command(() =>Settings.BearsListCount++));
+			}
+		}
+
 		public BearsViewModel()
 		{
 			AppService.Messaging.SubscribeMessage<BearsMessage>(this, results =>
@@ -31,11 +40,6 @@ namespace MaterialTest
 					IsBusy = false;
 				}
 			});
-
-//			MessagingCenter.Subscribe<AppService, IEnumerable<Bears>> (this, "BearMessage", (sender, args) => {
-//				BearsList = new ObservableCollection<Bears>(args);
-//				IsBusy = false;
-//			});
 
 			if (IsBusy)
 				return;

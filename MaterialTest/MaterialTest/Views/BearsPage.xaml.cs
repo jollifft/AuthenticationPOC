@@ -9,7 +9,9 @@ namespace MaterialTest
 	{
 		public BearsPage()
 		{
-			InitializeComponent();
+
+			InitializeComponent ();
+			BindingContext = new BearsViewModel ();
 
 		}
 	}

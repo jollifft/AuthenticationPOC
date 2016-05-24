@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MaterialTest.BearsPage"
 		xmlns:viewModels="clr-namespace:MaterialTest;assembly=MaterialTest">
-	<ContentPage.BindingContext>
+<!--	<ContentPage.BindingContext>
 		<viewModels:BearsViewModel/>
-	</ContentPage.BindingContext>
+	</ContentPage.BindingContext>-->
 	<ContentPage.Content>
 		<StackLayout VerticalOptions="FillAndExpand">
 			<ActivityIndicator HeightRequest="50" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
@@ -15,6 +15,8 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button Text="Increase Count!" Command="{Binding IncreaseCommand}"/>
+            <Label BindingContext="{Binding Settings}" Text="{Binding BearsListCount, StringFormat='The count is {0:F0}'}" HorizontalOptions="Center"/>
         </StackLayout>
 	</ContentPage.Content>
 </ContentPage>

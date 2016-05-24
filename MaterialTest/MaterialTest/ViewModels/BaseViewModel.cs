@@ -44,6 +44,11 @@ namespace MaterialTest
 			}
 		}
 
+		public Settings Settings
+		{
+			get { return Settings.Current; }
+		}
+
 		#region INotifyPropertyChanged implementation
 
 		public event PropertyChangedEventHandler PropertyChanged;

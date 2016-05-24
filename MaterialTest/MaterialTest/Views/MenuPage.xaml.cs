@@ -22,7 +22,7 @@ namespace MaterialTest
 			masterPageItems.Add(new MenuItems
 			{
 				Title = "Settings",
-				TargetType = typeof(Settings)
+				TargetType = typeof(SettingsPage)
 			});
 
 			listView.ItemsSource = masterPageItems;

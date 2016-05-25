@@ -1,6 +1,4 @@
 ﻿using System;
-using MAD.Plugin.BaaS.AzureService;
-using MAD.Plugin.BaaS.Core;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Xamarin.Forms;
@@ -31,7 +29,7 @@ namespace MaterialTest
 			//		}
 			//	}
 			//};
-			var azure = new AzureService(new MobileServiceClient("http://azureauthbackend.azurewebsites.net"), new MobileServiceSQLiteStore("MaterialDesign.db3"), 14000);
+			var azure = new AzureService(new MobileServiceClient("http://azureauthbackend.azurewebsites.net"), new MobileServiceSQLiteStore("MaterialDesign.db3"), 30000);
 			AppService = new AppService(azure, new PubSubPCLMessaging());
 			MainPage = new RootPage();
 		}

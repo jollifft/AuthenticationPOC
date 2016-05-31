@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MaterialTest.LoginFailedPage">
+	<ContentPage.Content>
+		<StackLayout>
+		<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsNotBusy}">
+			<Label Text="Sorry, Loging Failed :(" VerticalOptions="Center" HorizontalOptions="Center"/>
+			<Button Text="Retry Login" Command="{Binding RetryLoginCommand}"/>
+		</StackLayout>
+		<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsBusy}">
+			<ActivityIndicator IsRunning="{Binding IsBusy}"></ActivityIndicator>
+		</StackLayout>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

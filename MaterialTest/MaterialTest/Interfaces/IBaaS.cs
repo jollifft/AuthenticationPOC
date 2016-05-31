@@ -2,11 +2,13 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace MaterialTest
 {
     public interface IBaaS
     {
+		IMobileServiceClient AzureClient { get; }
         void DefineTable<T>(bool isSynced = true);
         Task InitializeAsync();
         Task SyncDataAsync<T>(Expression<Func<T, bool>> predicate = null);

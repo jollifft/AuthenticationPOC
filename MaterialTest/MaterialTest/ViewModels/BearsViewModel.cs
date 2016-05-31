@@ -28,7 +28,16 @@ namespace MaterialTest
 			get 
 			{ 
 				return increase ?? (increase = new Command(() =>Settings.BearsListCount++));
+				//return increase ?? (increase = new Command(async () => await App.AppService.GetBears()));
 			}
+		}
+
+		public async Task LoadBearsAsync()
+		{
+			if (IsBusy)
+				return;
+			IsBusy = true;
+			await App.AppService.GetBears ();
 		}
 
 		public BearsViewModel()
@@ -40,12 +49,6 @@ namespace MaterialTest
 					IsBusy = false;
 				}
 			});
-
-			if (IsBusy)
-				return;
-
-			IsBusy = true;
-			Task.Run(async () => await App.AppService.GetBears());
 
 		}
 	}

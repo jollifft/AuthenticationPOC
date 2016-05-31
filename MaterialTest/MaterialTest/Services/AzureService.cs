@@ -16,7 +16,11 @@ namespace MaterialTest
     /// </summary>
 	public class AzureService : IBaaS
     {
-        private IMobileServiceClient _azureClient;
+        private static IMobileServiceClient _azureClient;
+		public IMobileServiceClient AzureClient {
+			get { return _azureClient; }
+		}
+
         private IMobileServiceLocalStore _store;
         private List<object> _syncTables;
         private int _timeout;

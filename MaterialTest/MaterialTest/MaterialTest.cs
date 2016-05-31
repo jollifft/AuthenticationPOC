@@ -12,6 +12,14 @@ namespace MaterialTest
 	public class App : Application
 	{
 		public static AppService AppService { get; private set;}
+
+		public static IAuthenticate Authenticator { get; private set; }
+
+		public static void Init(IAuthenticate authenticator)
+		{
+			Authenticator = authenticator;
+		}
+
 		public App()
 		{
 			// The root page of your application
@@ -29,7 +37,7 @@ namespace MaterialTest
 			//		}
 			//	}
 			//};
-			var azure = new AzureService(new MobileServiceClient("http://azureauthbackend.azurewebsites.net"), new MobileServiceSQLiteStore("MaterialDesign.db3"), 30000);
+			var azure = new AzureService(new MobileServiceClient("https://azureauthbackend.azurewebsites.net"), new MobileServiceSQLiteStore("MaterialDesign.db3"), 30000);
 			AppService = new AppService(azure, new PubSubPCLMessaging());
 			MainPage = new RootPage();
 		}
@@ -37,6 +45,7 @@ namespace MaterialTest
 		protected override void OnStart()
 		{
 			// Handle when your app starts
+			//OnResume();
 		}
 
 		protected override void OnSleep()
@@ -44,9 +53,10 @@ namespace MaterialTest
 			// Handle when your app sleeps
 		}
 
-		protected override void OnResume()
+		protected override async void OnResume()
 		{
 			// Handle when your app resumes
+			//await Authenticator.Authenticate();
 		}
 	}
 }

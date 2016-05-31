@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace MaterialTest
 {
@@ -17,6 +20,16 @@ namespace MaterialTest
 			set
 			{
 				_isBusy = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public bool IsNotBusy
+		{
+			get { return !_isBusy; }
+			set
+			{
+				_isBusy = !value;
 				OnPropertyChanged();
 			}
 		}
@@ -47,6 +60,14 @@ namespace MaterialTest
 		public Settings Settings
 		{
 			get { return Settings.Current; }
+		}
+
+		public async Task<bool> LoginAsync()
+		{
+			this.IsBusy = true;
+			bool successful = await App.Authenticator.Authenticate();
+			this.IsBusy = false;
+			return successful;
 		}
 
 		#region INotifyPropertyChanged implementation

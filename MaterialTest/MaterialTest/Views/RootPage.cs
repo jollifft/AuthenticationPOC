@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace MaterialTest
 {
@@ -26,7 +27,15 @@ namespace MaterialTest
 				IsPresented = false;
 			}
 		}
-}
+
+		protected override async void OnAppearing ()
+		{
+			base.OnAppearing ();
+
+			//await App.Authenticator.Authenticate ();
+		}
+
+	}
 }
 
 

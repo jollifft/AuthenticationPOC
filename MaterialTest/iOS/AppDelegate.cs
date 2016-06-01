@@ -4,6 +4,9 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+
+
 
 namespace MaterialTest.iOS
 {
@@ -18,7 +21,7 @@ namespace MaterialTest.iOS
 
 			global::Xamarin.Forms.Forms.Init();
 
-			LoadApplication(new App());
+			LoadApplication(new App(new PlatformParameters(UIApplication.SharedApplication.KeyWindow.RootViewController)));
 
 			return base.FinishedLaunching(app, options);
 		}

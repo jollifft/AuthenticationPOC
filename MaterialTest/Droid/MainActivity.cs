@@ -7,6 +7,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace MaterialTest.Droid
 {
@@ -27,7 +28,7 @@ namespace MaterialTest.Droid
 
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 
-			LoadApplication(new App());
+			LoadApplication(new App(new PlatformParameters(this)));
 		}
 	}
 }

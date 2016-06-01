@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MAD.Plugin.MessagingService.PubSubPCL;
 using MAD.Plugin.MessagingService.Core;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MaterialTest
@@ -12,7 +13,7 @@ namespace MaterialTest
 	public class App : Application
 	{
 		public static AppService AppService { get; private set;}
-		public App()
+		public App(IPlatformParameters platformParams)
 		{
 			// The root page of your application
 			//var content = new ContentPage
@@ -29,8 +30,8 @@ namespace MaterialTest
 			//		}
 			//	}
 			//};
-			var azure = new AzureService(new MobileServiceClient("http://azureauthbackend.azurewebsites.net"), new MobileServiceSQLiteStore("MaterialDesign.db3"), 30000);
-			AppService = new AppService(azure, new PubSubPCLMessaging());
+			var azure = new AzureService(new MobileServiceClient("https://azureauthbackend.azurewebsites.net"), new MobileServiceSQLiteStore("MaterialDesign.db3"), 30000);
+			AppService = new AppService(azure, new PubSubPCLMessaging(), platformParams);
 			MainPage = new RootPage();
 		}
 

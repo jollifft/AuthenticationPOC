@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace MaterialTest
 {
@@ -47,6 +48,14 @@ namespace MaterialTest
 		public Settings Settings
 		{
 			get { return Settings.Current; }
+		}
+
+		public async Task<bool> LoginAsync()
+		{
+			IsBusy = true;
+			bool successful = await App.AppService.LoginAsync ();
+			IsBusy = false;
+			return successful;
 		}
 
 		#region INotifyPropertyChanged implementation

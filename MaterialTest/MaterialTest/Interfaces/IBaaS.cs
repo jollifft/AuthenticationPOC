@@ -7,6 +7,7 @@ namespace MaterialTest
 {
     public interface IBaaS
     {
+		Task<bool> LoginAsync (string token);
         void DefineTable<T>(bool isSynced = true);
         Task InitializeAsync();
         Task SyncDataAsync<T>(Expression<Func<T, bool>> predicate = null);

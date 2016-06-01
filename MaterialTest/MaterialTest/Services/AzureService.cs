@@ -47,6 +47,24 @@ namespace MaterialTest
 
         #region IBaaS implementation
 
+		public async Task<bool> LoginAsync(string token)
+		{
+			bool successful = false;
+			try
+			{
+				JObject payload = new JObject();
+				payload["access_token"] = token;
+				await _azureClient.LoginAsync(MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory, payload);
+				successful = true;
+			}
+			catch (Exception e)
+			{
+				string message = e.Message;
+			}
+
+			return successful;
+		}
+
         /// <summary>
         /// Defines sync tables and then you can pass in whether you actually want to sync them or not.
         /// </summary>

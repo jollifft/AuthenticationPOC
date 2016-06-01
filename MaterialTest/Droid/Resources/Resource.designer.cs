@@ -27,6 +27,9 @@ namespace MaterialTest.Droid
 		public static void UpdateIdValues()
 		{
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::MaterialTest.Droid.Resource.Attribute.actionBarSize;
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Id.agentWebView = global::MaterialTest.Droid.Resource.Id.agentWebView;
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Layout.WebAuthenticationBroker = global::MaterialTest.Droid.Resource.Layout.WebAuthenticationBroker;
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.String.ApplicationName = global::MaterialTest.Droid.Resource.String.ApplicationName;
 		}
 		
 		public partial class Animation
@@ -2264,6 +2267,9 @@ namespace MaterialTest.Droid
 			// aapt resource value: 0x7f0b003d
 			public const int activity_chooser_view_content = 2131427389;
 			
+			// aapt resource value: 0x7f0b009a
+			public const int agentWebView = 2131427482;
+			
 			// aapt resource value: 0x7f0b0049
 			public const int alertTitle = 2131427401;
 			
@@ -2924,6 +2930,9 @@ namespace MaterialTest.Droid
 			// aapt resource value: 0x7f030038
 			public const int Toolbar = 2130903096;
 			
+			// aapt resource value: 0x7f030039
+			public const int WebAuthenticationBroker = 2130903097;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -2936,6 +2945,9 @@ namespace MaterialTest.Droid
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f060026
+			public const int ApplicationName = 2131099686;
 			
 			// aapt resource value: 0x7f060012
 			public const int abc_action_bar_home_description = 2131099666;

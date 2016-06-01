@@ -31,6 +31,14 @@ namespace MaterialTest
 			}
 		}
 
+		public async Task LoadBearsAsync()
+		{
+			if (IsBusy)
+				return;
+			IsBusy = true;
+			await App.AppService.GetBears ();
+		}
+
 		public BearsViewModel()
 		{
 			AppService.Messaging.SubscribeMessage<BearsMessage>(this, results =>
@@ -40,12 +48,6 @@ namespace MaterialTest
 					IsBusy = false;
 				}
 			});
-
-			if (IsBusy)
-				return;
-
-			IsBusy = true;
-			Task.Run(async () => await App.AppService.GetBears());
 
 		}
 	}

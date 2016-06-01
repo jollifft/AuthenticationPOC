@@ -72,17 +72,18 @@ namespace MaterialTest
 
 		public async Task<bool> LoginAsync()
 		{
-			//"023bf722-9c1e-47da-89f5-d4054dc5540a"
-			AuthenticationContext ac = new AuthenticationContext ("https://login.windows.net/tylerjolliffkbslp.onmicrosoft.com");
-			AuthenticationResult result;
-			try {
-				result = await ac.AcquireTokenAsync ("https://graph.windows.net", "8644b90c-962d-456c-8788-5b94f3bfb80c", 
-					new Uri ("http://azureauthbackend.azurewebsites.net/.auth/login/done"), Params);
-			} catch (Exception ex) {
-				result = default(AuthenticationResult);
+			AuthenticationResult result = null;
+			bool successful = false;
+			try
+			{
+				AuthenticationContext ac = new AuthenticationContext ("https://login.windows.net/tylerjolliffkbslp.onmicrosoft.com");
+				result = await ac.AcquireTokenAsync ("023bf722-9c1e-47da-89f5-d4054dc5540a", "8644b90c-962d-456c-8788-5b94f3bfb80c", new Uri ("http://azureauthbackend.azurewebsites.net/.auth/login/done"), Params);
+				successful = await _baas.LoginAsync (result.AccessToken);
 			}
+			catch(Exception ex){
 
-			bool successful = await _baas.LoginAsync (result.AccessToken);
+			}
+				
 			return successful;
 			
 		}

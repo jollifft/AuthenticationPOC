@@ -30,6 +30,12 @@ namespace MaterialTest.Droid
 
 			LoadApplication(new App(new PlatformParameters(this)));
 		}
+
+		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+		{
+			base.OnActivityResult(requestCode, resultCode, data);
+			AuthenticationAgentContinuationHelper.SetAuthenticationAgentContinuationEventArgs(requestCode, resultCode, data);
+		}
 	}
 }
 

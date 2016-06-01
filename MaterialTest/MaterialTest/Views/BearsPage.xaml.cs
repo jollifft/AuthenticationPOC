@@ -22,10 +22,8 @@ namespace MaterialTest
 
 			if (vm.IsBusy)
 				return;
-			vm.IsBusy = true;
-			bool success = await App.AppService.LoginAsync ();
-			vm.IsBusy = false;
-//			bool success = await vm.LoginAsync ();
+
+			bool success = await vm.LoginAsync ();
 			if (success) {
 				await vm.LoadBearsAsync ();
 			} else {

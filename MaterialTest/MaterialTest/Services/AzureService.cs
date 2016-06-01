@@ -50,12 +50,14 @@ namespace MaterialTest
 		public async Task<bool> LoginAsync(string token)
 		{
 			bool successful = false;
+			MobileServiceUser user = null;
 			try
 			{
 				JObject payload = new JObject();
 				payload["access_token"] = token;
-				await _azureClient.LoginAsync(MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory, payload);
-				successful = true;
+				user = await _azureClient.LoginAsync(MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory, payload);
+				if(user != null)
+					successful = true;
 			}
 			catch (Exception e)
 			{

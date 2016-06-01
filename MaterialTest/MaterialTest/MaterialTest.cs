@@ -19,7 +19,7 @@ namespace MaterialTest
 		{
 			Params = platformParams;
 			var azure = new AzureService(new MobileServiceClient("https://azureauthbackend.azurewebsites.net"), new MobileServiceSQLiteStore("MaterialDesign.db3"), 30000);
-			AppService = new AppService(azure, new PubSubPCLMessaging(), platformParams);
+			AppService = new AppService(azure, new PubSubPCLMessaging());
 			MainPage = new RootPage();
 		}
 

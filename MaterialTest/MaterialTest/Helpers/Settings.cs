@@ -60,6 +60,22 @@ namespace MaterialTest
 			}
 		}
 
+		const string UserAuthTokenKey = "userauthtoken_key";
+		static readonly string UserAuthTokenDefault = string.Empty;
+
+		public string UserAuthToken
+		{
+			get
+			{
+				return AppSettings.GetValueOrDefault<string> (UserAuthTokenKey, UserAuthTokenDefault);
+			}
+			set {
+				if (AppSettings.AddOrUpdateValue<string> (UserAuthTokenKey, value)) {
+					OnPropertyChanged ();
+				}
+			}
+		}
+
 		#region INotifyPropertyChanged implementation
 
 		public event PropertyChangedEventHandler PropertyChanged;

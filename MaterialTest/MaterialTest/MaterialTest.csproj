@@ -53,6 +53,7 @@
     <Compile Include="Interfaces\IBaaS.cs" />
     <Compile Include="Interfaces\ITableData.cs" />
     <Compile Include="Services\AzureService.cs" />
+    <Compile Include="Helpers\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MAD.Plugin.MessagingService.Core">

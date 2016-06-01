@@ -15,7 +15,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Increase Count!" Command="{Binding IncreaseCommand}"/>
+            <Button Text="Logout!" Command="{Binding IncreaseCommand}"/>
             <Label BindingContext="{Binding Settings}" Text="{Binding BearsListCount, StringFormat='The count is {0:F0}'}" HorizontalOptions="Center"/>
         </StackLayout>
 	</ContentPage.Content>

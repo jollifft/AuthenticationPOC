@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using MAD.Plugin.MessagingService.Core;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using System.Net.Http;
 
 namespace MaterialTest
 {
 	public class AppService
 	{
 		IBaaS _baas;
-		IPlatformParameters Params;
 		static IMessagingService _messaging;
 		public static IMessagingService Messaging
 		{
@@ -20,11 +20,15 @@ namespace MaterialTest
 
 		public bool IsInitialized { get; private set; }
 
-		public AppService(IBaaS baas, IMessagingService messaging, IPlatformParameters pParams)
+		public Settings Settings
+		{
+			get { return Settings.Current; }
+		}
+
+		public AppService(IBaaS baas, IMessagingService messaging)
 		{
 			_baas = baas;
 			_messaging = messaging;
-			Params = pParams;
 
 			//Task.Run(async () => await Init());
 		}
@@ -76,16 +80,33 @@ namespace MaterialTest
 			bool successful = false;
 			try
 			{
-				AuthenticationContext ac = new AuthenticationContext ("https://login.windows.net/tylerjolliffkbslp.onmicrosoft.com");
-				result = await ac.AcquireTokenAsync ("023bf722-9c1e-47da-89f5-d4054dc5540a", "8644b90c-962d-456c-8788-5b94f3bfb80c", new Uri ("http://azureauthbackend.azurewebsites.net/.auth/login/done"), Params);
-				successful = await _baas.LoginAsync (result.AccessToken);
+				AuthenticationContext ac = new AuthenticationContext (Constants.Authority);
+				result = await ac.AcquireTokenAsync (Constants.ResourceId, Constants.ClientId, new Uri (Constants.RedirectUri), App.Params);
+				successful = true;
+
+				//check to see if we need to sync MobileServiceClient
+				if(Settings.UserAuthToken != result.AccessToken)
+				{
+					Settings.UserAuthToken = result.AccessToken;
+					await _baas.LoginAsync (result.AccessToken);
+				}
 			}
 			catch(Exception ex){
 
 			}
 				
 			return successful;
-			
+		}
+
+		public async Task LogoutAsync()
+		{
+			AuthenticationContext ac = new AuthenticationContext(Constants.Authority);
+			ac.TokenCache.Clear();
+			string requestUrl = $"{Constants.Authority}/oauth2/logout?post_logout_redirect_uri={Constants.RedirectUri}";
+
+			HttpClient client = new HttpClient();
+			var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
+			var response = await client.SendAsync(request);
 		}
 	}
 }

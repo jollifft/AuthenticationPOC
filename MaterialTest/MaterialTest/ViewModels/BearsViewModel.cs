@@ -27,7 +27,8 @@ namespace MaterialTest
 		{
 			get 
 			{ 
-				return increase ?? (increase = new Command(() =>Settings.BearsListCount++));
+//				return increase ?? (increase = new Command(() =>Settings.BearsListCount++));
+				return increase ?? (increase = new Command(async() =>await App.AppService.LogoutAsync()));
 			}
 		}
 
@@ -44,9 +45,9 @@ namespace MaterialTest
 			AppService.Messaging.SubscribeMessage<BearsMessage>(this, results =>
 			{
 				BearsList = new ObservableCollection<Bears>(results.bears);
-				if(BearsList.Count > 0){
-					IsBusy = false;
-				}
+				
+				IsBusy = false;
+				
 			});
 
 		}

@@ -9,6 +9,13 @@ namespace MaterialTest
 		public static string ClientId = "8644b90c-962d-456c-8788-5b94f3bfb80c";
 		public static string RedirectUri = "http://azureauthbackend.azurewebsites.net/.auth/login/done";
 		public static string BackendUrl = "https://azureauthbackend.azurewebsites.net";
+
+		#region Connectivity Checking
+		//REMOTE_* are for Xam.Plugin.Connectivity
+		public static readonly string REMOTE_HOST = "google.com"; //remote host you wish to use for IsConnected status
+		public static readonly int REMOTE_PORT = 80;
+		public static readonly int REMOTE_TIMEOUT_MS = 5000;
+		#endregion
 	}
 }
 

@@ -59,10 +59,10 @@ namespace MaterialTest
 			//await GetLocalData();
 		}
 
-		public async Task GetLocalData()
-		{
-			await GetBears();
-		}
+//		public async Task GetLocalData()
+//		{
+//			await GetBears();
+//		}
 
 		public async Task GetBears()
 		{
@@ -78,14 +78,20 @@ namespace MaterialTest
 		{
 			AuthenticationResult result = null;
 			bool successful = false;
+
+			//if not connected, fail login
+			if (await App.ConnectionService.CheckConnection() == false)
+				return false;
+			
 			try
 			{
 				AuthenticationContext ac = new AuthenticationContext (Constants.Authority);
 				result = await ac.AcquireTokenAsync (Constants.ResourceId, Constants.ClientId, new Uri (Constants.RedirectUri), App.Params);
-				successful = true;
+				if(result != null)
+					successful = true;
 
 				//check to see if we need to sync MobileServiceClient
-				if(Settings.UserAuthToken != result.AccessToken)
+				if(Settings.UserAuthToken != result.AccessToken && successful == true)
 				{
 					Settings.UserAuthToken = result.AccessToken;
 					await _baas.LoginAsync (result.AccessToken);

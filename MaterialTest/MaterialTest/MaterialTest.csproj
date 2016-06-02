@@ -57,6 +57,7 @@
     <Compile Include="Interfaces\IConnectivityService.cs" />
     <Compile Include="Services\ConnectivityService.cs" />
     <Compile Include="ExtensionMethods\TaskConnectivityExtensions.cs" />
+    <Compile Include="Messages\NewDataMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MAD.Plugin.MessagingService.Core">

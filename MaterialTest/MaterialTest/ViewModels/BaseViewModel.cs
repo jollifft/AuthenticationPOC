@@ -50,12 +50,11 @@ namespace MaterialTest
 			get { return Settings.Current; }
 		}
 
-		public async Task<bool> LoginAsync()
+		public async Task LoginAsync()
 		{
 			IsBusy = true;
-			bool successful = await App.AppService.LoginAsync ();
+			await App.AppService.LoginAsync ();
 			IsBusy = false;
-			return successful;
 		}
 
 		#region INotifyPropertyChanged implementation

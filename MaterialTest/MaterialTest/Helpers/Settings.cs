@@ -76,6 +76,22 @@ namespace MaterialTest
 			}
 		}
 
+		const string IsLoggedInKey = "isloggedin_key";
+		static readonly bool IsLoggedInDefault = false;
+
+		public bool IsLoggedIn
+		{
+			get
+			{
+				return AppSettings.GetValueOrDefault<bool> (IsLoggedInKey, IsLoggedInDefault);
+			}
+			set {
+				if (AppSettings.AddOrUpdateValue<bool> (IsLoggedInKey, value)) {
+					OnPropertyChanged ();
+				}
+			}
+		}
+
 		#region INotifyPropertyChanged implementation
 
 		public event PropertyChangedEventHandler PropertyChanged;

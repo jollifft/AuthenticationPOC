@@ -42,13 +42,17 @@ namespace MaterialTest
 
 		public BearsViewModel()
 		{
-			AppService.Messaging.SubscribeMessage<BearsMessage>(this, results =>
+			App.AppService.Messaging.SubscribeMessage<BearsMessage>(this, results =>
 			{
 				BearsList = new ObservableCollection<Bears>(results.bears);
 				
 				IsBusy = false;
 				
 			});
+
+			App.AppService.Messaging.SubscribeMessage<NewDataMessage> (this, async result => await LoadBearsAsync ());
+
+			BearsList = new ObservableCollection<Bears> ();
 
 		}
 	}

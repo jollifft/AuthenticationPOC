@@ -28,16 +28,25 @@ namespace MaterialTest
 		protected override void OnStart()
 		{
 			// Handle when your app starts
+			OnResume();
 		}
 
 		protected override void OnSleep()
 		{
 			// Handle when your app sleeps
+			hasRan = false;
 		}
 
-		protected override void OnResume()
+		bool hasRan;
+		protected async override void OnResume()
 		{
 			// Handle when your app resumes
+			if (hasRan)
+				return;
+			hasRan = true;
+
+			await AppService.LoginAsync ();
+			await AppService.GetRemoteData ();
 		}
 	}
 }

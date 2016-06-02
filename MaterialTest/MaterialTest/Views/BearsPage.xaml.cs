@@ -20,15 +20,21 @@ namespace MaterialTest
 		{
 			base.OnAppearing ();
 
-			if (vm.IsBusy)
-				return;
+			//checking for zero incase we reuse views (performance)
+			if (vm.BearsList.Count == 0) 
+				await vm.LoadBearsAsync();
 
-			bool success = await vm.LoginAsync ();
-			if (success) {
-				await vm.LoadBearsAsync ();
-			} else {
-				//alert
-			}
+
+
+//			if (vm.IsBusy)
+//				return;
+//
+//			bool success = await vm.LoginAsync ();
+//			if (success) {
+//				await vm.LoadBearsAsync ();
+//			} else {
+//				//alert
+//			}
 		}
 	}
 }

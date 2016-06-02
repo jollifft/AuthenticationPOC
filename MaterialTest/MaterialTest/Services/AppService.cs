@@ -10,9 +10,9 @@ namespace MaterialTest
 {
 	public class AppService
 	{
-		IBaaS _baas;
+		static IBaaS _baas;
 		static IMessagingService _messaging;
-		public static IMessagingService Messaging
+		public IMessagingService Messaging
 		{
 			get { return _messaging; }
 
@@ -29,8 +29,6 @@ namespace MaterialTest
 		{
 			_baas = baas;
 			_messaging = messaging;
-
-			//Task.Run(async () => await Init());
 		}
 
 		async Task Init()
@@ -42,27 +40,23 @@ namespace MaterialTest
 			//Local storage init
 			_baas.DefineTable<Bears>();
 			await _baas.InitializeAsync();
-			
-			//Local store end
-
-			//await GetLocalData(); //load up local data
-			await GetRemoteData(); //pull any new data from IBaaS
 		}
 
 		public async Task GetRemoteData()
 		{
 			try {
-				await _baas.SyncDataAsync<Bears> ();
-			} catch (Exception ex) {
-				
-			}
-			//await GetLocalData();
-		}
+				if(Settings.IsLoggedIn)
+				{
+					await Init();
 
-//		public async Task GetLocalData()
-//		{
-//			await GetBears();
-//		}
+					await _baas.SyncDataAsync<Bears> ();
+
+					Messaging.PublishMessage<NewDataMessage>(this, new NewDataMessage());
+				}
+			} catch (Exception ex) {
+				string error = ex.Message;
+			}
+		}
 
 		public async Task GetBears()
 		{
@@ -74,34 +68,33 @@ namespace MaterialTest
 		
 		}
 
-		public async Task<bool> LoginAsync()
+		public async Task LoginAsync()
 		{
 			AuthenticationResult result = null;
-			bool successful = false;
+			Settings.IsLoggedIn = false;
 
 			//if not connected, fail login
-			if (await App.ConnectionService.CheckConnection() == false)
-				return false;
+			if (await App.ConnectionService.CheckConnection () == false)
+				return;
 			
 			try
 			{
 				AuthenticationContext ac = new AuthenticationContext (Constants.Authority);
 				result = await ac.AcquireTokenAsync (Constants.ResourceId, Constants.ClientId, new Uri (Constants.RedirectUri), App.Params);
 				if(result != null)
-					successful = true;
+					Settings.IsLoggedIn = true;
 
-				//check to see if we need to sync MobileServiceClient
-				if(Settings.UserAuthToken != result.AccessToken && successful == true)
+				//sync with mobile service client
+				if(Settings.IsLoggedIn == true)
 				{
-					Settings.UserAuthToken = result.AccessToken;
 					await _baas.LoginAsync (result.AccessToken);
 				}
 			}
 			catch(Exception ex){
-
+				string message = ex.Message;
 			}
-				
-			return successful;
+
+
 		}
 
 		public async Task LogoutAsync()
@@ -112,7 +105,7 @@ namespace MaterialTest
 
 			HttpClient client = new HttpClient();
 			var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-			var response = await client.SendAsync(request);
+			await client.SendAsync(request);
 		}
 	}
 }

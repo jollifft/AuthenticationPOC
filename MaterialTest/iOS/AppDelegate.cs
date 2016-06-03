@@ -21,7 +21,7 @@ namespace MaterialTest.iOS
 
 			global::Xamarin.Forms.Forms.Init();
 
-			LoadApplication(new App(new PlatformParameters(UIApplication.SharedApplication.KeyWindow.RootViewController)));
+			LoadApplication(new App(new Authenticate()));
 
 			return base.FinishedLaunching(app, options);
 		}

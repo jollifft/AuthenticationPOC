@@ -16,6 +16,14 @@ namespace MaterialTest
 		public static readonly int REMOTE_PORT = 80;
 		public static readonly int REMOTE_TIMEOUT_MS = 5000;
 		#endregion
+
+		#region User Notification 
+		public static readonly string USER_NOTIFICATION_BACKGROUND_COLOR = "e1e1e1";
+		public static readonly string USER_NOTIFICATION_TEXT_COLOR = "000";
+		public static readonly string USER_NOTIFICATION_MSG = "UserNotification";
+		public static readonly double USER_NOTIFICATION_HEIGHT = 143; 
+
+		#endregion
 	}
 }
 

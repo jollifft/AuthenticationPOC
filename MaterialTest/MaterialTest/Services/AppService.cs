@@ -74,13 +74,15 @@ namespace MaterialTest
 			Settings.IsLoggedIn = false;
 
 			//if not connected, fail login
-			if (await App.ConnectionService.CheckConnection () == false)
+			if (await App.ConnectionService.CheckConnection () == false) {
+				Messaging.PublishMessage<UserNotificationMessage> (this, new UserNotificationMessage (new UserNotification{ Message = "Login Failed :(" }));
 				return;
+			}
 			
 			try
 			{
 				AuthenticationContext ac = new AuthenticationContext (Constants.Authority);
-				result = await ac.AcquireTokenAsync (Constants.ResourceId, Constants.ClientId, new Uri (Constants.RedirectUri), App.Params);
+				result = await ac.AcquireTokenAsync (Constants.ResourceId, Constants.ClientId, new Uri (Constants.RedirectUri), App.Authenticate.GetParams());
 				if(result != null)
 					Settings.IsLoggedIn = true;
 
@@ -93,7 +95,8 @@ namespace MaterialTest
 			catch(Exception ex){
 				string message = ex.Message;
 			}
-
+			if (Settings.IsLoggedIn == false)
+				Messaging.PublishMessage<UserNotificationMessage> (this, new UserNotificationMessage (new UserNotification{ Message = "Login Failed :(" }));
 
 		}
 

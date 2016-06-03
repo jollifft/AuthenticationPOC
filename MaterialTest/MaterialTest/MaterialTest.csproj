@@ -58,6 +58,11 @@
     <Compile Include="Services\ConnectivityService.cs" />
     <Compile Include="ExtensionMethods\TaskConnectivityExtensions.cs" />
     <Compile Include="Messages\NewDataMessage.cs" />
+    <Compile Include="Views\UserNotificationView.cs" />
+    <Compile Include="Models\UserNotification.cs" />
+    <Compile Include="Animations\UserNotificationAnimation.cs" />
+    <Compile Include="Messages\UserNotificationMessage.cs" />
+    <Compile Include="Interfaces\IAuthenticate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MAD.Plugin.MessagingService.Core">
@@ -123,6 +128,7 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Interfaces\" />
     <Folder Include="ExtensionMethods\" />
+    <Folder Include="Animations\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\BearsPage.xaml">

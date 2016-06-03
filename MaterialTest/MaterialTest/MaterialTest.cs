@@ -13,13 +13,16 @@ namespace MaterialTest
 	public class App : Application
 	{
 		public static AppService AppService { get; private set;}
-		public static IPlatformParameters Params { get; private set; }
+		//public static IPlatformParameters Params { get; private set; }
+		public static IAuthenticate Authenticate { get; private set; }
 		public static IConnectivityService ConnectionService { get; private set; }
 
-		public App(IPlatformParameters platformParams)
+		public App(IAuthenticate authenticate)
 		{
-			Params = platformParams;
+			//Params = platformParams;
+			Authenticate = authenticate;
 			ConnectionService = new ConnectivityService ();
+
 			var azure = new AzureService(new MobileServiceClient("https://azureauthbackend.azurewebsites.net"), new MobileServiceSQLiteStore("MaterialDesign.db3"), 30000);
 			AppService = new AppService(azure, new PubSubPCLMessaging());
 			MainPage = new RootPage();
@@ -34,19 +37,23 @@ namespace MaterialTest
 		protected override void OnSleep()
 		{
 			// Handle when your app sleeps
-			hasRan = false;
+			if(!loggingIn)
+				hasRan = false;
 		}
 
 		bool hasRan;
+		bool loggingIn;
 		protected async override void OnResume()
 		{
 			// Handle when your app resumes
 			if (hasRan)
 				return;
 			hasRan = true;
+			loggingIn = true;
 
 			await AppService.LoginAsync ();
 			await AppService.GetRemoteData ();
+			loggingIn = false;
 		}
 	}
 }

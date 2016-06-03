@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace MaterialTest
 {
@@ -11,6 +12,37 @@ namespace MaterialTest
 		private bool _isBusy;
 		private bool _noResults;
 		private bool _isConnected;
+		private UserNotification _userNotification;
+		private Color _userNotificationColor;
+
+		public BaseViewModel()
+		{
+			App.AppService.Messaging.SubscribeMessage<UserNotificationMessage>(this, args => UserNotification = args.UserNotification);
+		}
+
+		#region properties
+
+		public UserNotification UserNotification {
+			get { return _userNotification; }
+			set
+			{
+				_userNotification = value;
+				if (string.IsNullOrEmpty (value.Color)) {
+					value.Color = Constants.USER_NOTIFICATION_BACKGROUND_COLOR;
+				}
+				UserNotificationColor = Color.FromHex(value.Color);
+				OnPropertyChanged ();
+			}
+		}
+
+		public Color UserNotificationColor
+		{
+			get { return _userNotificationColor; }
+			set {
+				_userNotificationColor = value;
+				OnPropertyChanged ();
+			}
+		}
 
 		public bool IsBusy
 		{
@@ -45,16 +77,11 @@ namespace MaterialTest
 			}
 		}
 
+		#endregion
+
 		public Settings Settings
 		{
 			get { return Settings.Current; }
-		}
-
-		public async Task LoginAsync()
-		{
-			IsBusy = true;
-			await App.AppService.LoginAsync ();
-			IsBusy = false;
 		}
 
 		#region INotifyPropertyChanged implementation

@@ -45,13 +45,17 @@ namespace MaterialTest
 		public async Task GetRemoteData()
 		{
 			try {
-				if(Settings.IsLoggedIn)
+				bool isConnected = await App.ConnectionService.CheckConnection();
+				if(Settings.IsLoggedIn && isConnected == true)
 				{
 					await Init();
 
 					await _baas.SyncDataAsync<Bears> ();
 
 					Messaging.PublishMessage<NewDataMessage>(this, new NewDataMessage());
+				}
+				else{
+					Messaging.PublishMessage<UserNotificationMessage> (this, new UserNotificationMessage (new UserNotification{ Message = "Login Failed or no conneceting :(" }));
 				}
 			} catch (Exception ex) {
 				string error = ex.Message;
